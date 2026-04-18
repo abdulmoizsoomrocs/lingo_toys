@@ -1,0 +1,17 @@
+<svg width="800" height="500" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8b5cf6;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="800" height="500" fill="url(#grad1)"/>
+  <circle cx="400" cy="200" r="80" fill="#ffffff" opacity="0.9"/>
+  <rect x="320" y="180" width="160" height="40" fill="#333" rx="20"/>
+  <rect x="350" y="200" width="100" height="20" fill="#666" rx="10"/>
+  <circle cx="350" cy="250" r="15" fill="#ff6b6b"/>
+  <circle cx="400" cy="250" r="15" fill="#4ecdc4"/>
+  <circle cx="450" cy="250" r="15" fill="#45b7d1"/>
+  <text x="400" y="350" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="24" font-weight="bold">STEM Toy Kit</text>
+  <text x="400" y="380" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="16">Interactive Learning</text>
+</svg>

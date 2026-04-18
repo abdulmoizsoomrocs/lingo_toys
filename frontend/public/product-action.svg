@@ -1,0 +1,16 @@
+<svg width="200" height="200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="grad3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#f59e0b;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#d97706;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="200" height="200" fill="url(#grad3)"/>
+  <circle cx="100" cy="80" r="25" fill="#ffffff" opacity="0.9"/>
+  <rect x="75" y="70" width="50" height="20" fill="#333" rx="10"/>
+  <circle cx="90" cy="110" r="6" fill="#ff6b6b"/>
+  <circle cx="100" cy="110" r="6" fill="#4ecdc4"/>
+  <circle cx="110" cy="110" r="6" fill="#45b7d1"/>
+  <text x="100" y="150" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="12" font-weight="bold">Action Shot</text>
+  <path d="M 80 130 L 120 130 L 115 140 L 85 140 Z" fill="#333"/>
+</svg>
