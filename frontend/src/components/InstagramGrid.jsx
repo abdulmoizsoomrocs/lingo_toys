@@ -29,18 +29,39 @@ const instagramPhotos = [
 
 export default function InstagramGrid() {
   return (
-    <section className="py-24 bg-surface">
+    <section className="py-24 bg-gradient-to-b from-blue-50 via-surface to-purple-50">
       <div className="max-w-full overflow-hidden">
-        <div className="px-8 mb-12 flex justify-between items-end">
+        <div className="px-8 mb-12 flex justify-between items-end animate-fade-in">
           <div>
-            <h2 className="text-4xl font-black text-on-surface font-headline">#LingoToysLife</h2>
-            <p className="text-on-surface-variant">See how our community plays.</p>
+            <h2 className="text-4xl md:text-5xl font-black bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 bg-clip-text text-transparent font-headline drop-shadow-sm">#LingoToysLife</h2>
+            <p className="text-on-surface-variant text-lg font-semibold mt-2">See how our community plays.</p>
           </div>
         </div>
         <div className="flex gap-4 px-4 overflow-x-auto no-scrollbar">
           {instagramPhotos.map((photo, index) => (
-            <div key={index} className="min-w-[250px] sm:min-w-[300px] h-[250px] sm:h-[300px] rounded-lg overflow-hidden flex-shrink-0 hover:shadow-lg transition-shadow">
-              <img className="w-full h-full object-cover hover:scale-105 transition-transform duration-300" alt={photo.alt} src={photo.src} />
+            <div 
+              key={index} 
+              className="min-w-[250px] sm:min-w-[300px] h-[250px] sm:h-[300px] rounded-2xl overflow-hidden flex-shrink-0 hover:shadow-2xl transition-all duration-500 hover:scale-110 cursor-pointer group relative animate-fade-in shadow-lg"
+              style={{
+                animationDelay: `${index * 100}ms`
+              }}
+            >
+              <img 
+                className="w-full h-full object-cover group-hover:scale-125 transition-transform duration-700 group-hover:brightness-110" 
+                alt={photo.alt} 
+                src={photo.src} 
+              />
+              
+              {/* Overlay on Hover */}
+              <div className="absolute inset-0 bg-gradient-to-t from-purple-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              
+              {/* Shine Effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 group-hover:animate-shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              
+              {/* Index Badge */}
+              <div className="absolute top-3 right-3 w-8 h-8 bg-gradient-to-r from-pink-500 to-purple-600 rounded-full flex items-center justify-center text-white font-black text-sm shadow-lg transform group-hover:scale-125 transition-transform duration-300">
+                {index + 1}
+              </div>
             </div>
           ))}
         </div>

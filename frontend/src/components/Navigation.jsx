@@ -1,236 +1,554 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 
-export default function Navigation() {
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [timeLeft, setTimeLeft] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0
-  });
-  const { cart } = useCart();
-  
-  // Calculate total items in cart
-  const totalCartItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+/* ─── Keyframe injection (once) ──────────────────────────────────────── */
+const STYLES = `
+  @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@700;900&family=Poppins:wght@500;700&display=swap');
 
-  // Countdown Timer Effect
+  @keyframes shimmer {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+  @keyframes slideDown {
+    from { opacity: 0; transform: translateY(-12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse-badge {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255,80,120,0.5); }
+    50%       { transform: scale(1.15); box-shadow: 0 0 0 5px rgba(255,80,120,0); }
+  }
+  @keyframes flip {
+    0%   { transform: rotateX(0deg);   }
+    45%  { transform: rotateX(-90deg); opacity: 0.3; }
+    55%  { transform: rotateX(90deg);  opacity: 0.3; }
+    100% { transform: rotateX(0deg);   }
+  }
+  @keyframes rainbowBorder {
+    0%   { border-color: #ff6b9d; }
+    20%  { border-color: #f9a03f; }
+    40%  { border-color: #ffe066; }
+    60%  { border-color: #6bcfff; }
+    80%  { border-color: #b97aff; }
+    100% { border-color: #ff6b9d; }
+  }
+  @keyframes menuWipe {
+    from { opacity: 0; transform: translateY(-6px) scaleY(0.95); transform-origin: top; }
+    to   { opacity: 1; transform: translateY(0)  scaleY(1); }
+  }
+
+  .nav-root {
+    font-family: 'Poppins', sans-serif;
+    position: fixed; top: 0; left: 0; right: 0; z-index: 9999;
+    background: linear-gradient(
+      135deg,
+      rgba(255,107,157,0.22) 0%,
+      rgba(249,160,63,0.18) 20%,
+      rgba(255,224,102,0.16) 40%,
+      rgba(107,207,255,0.18) 60%,
+      rgba(185,122,255,0.22) 80%,
+      rgba(255,107,157,0.22) 100%
+    );
+    backdrop-filter: blur(18px) saturate(1.6);
+    -webkit-backdrop-filter: blur(18px) saturate(1.6);
+    border-bottom: 1px solid rgba(255,255,255,0.28);
+    box-shadow: 0 4px 32px rgba(100,60,200,0.08), 0 1px 0 rgba(255,255,255,0.3) inset;
+  }
+
+  /* animated rainbow glow line at very top */
+  .nav-root::before {
+    content: '';
+    display: block;
+    height: 2.5px;
+    background: linear-gradient(90deg, #ff6b9d, #f9a03f, #ffe066, #6bcfff, #b97aff, #ff6b9d);
+    background-size: 300% 100%;
+    animation: shimmer 4s linear infinite;
+  }
+
+  .nav-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 1.25rem;
+    display: flex;
+    align-items: center;
+    height: 62px;
+    gap: 0;
+  }
+
+  /* ── Logo ── */
+  .nav-logo {
+    display: flex; align-items: center; gap: 0.55rem;
+    text-decoration: none;
+    flex-shrink: 0;
+    transition: transform 0.2s, filter 0.2s;
+  }
+  .nav-logo:hover { transform: scale(1.04); filter: drop-shadow(0 2px 8px rgba(0,0,0,0.12)); }
+  .nav-logo img {
+    height: 38px;
+    width: auto;
+    object-fit: contain;
+    /* Rounded corners */
+    border-radius: 19px;
+    /* Blend modes to hide white background */
+    mix-blend-mode: multiply;
+    /* Brightness and contrast adjustments for clean look */
+    filter: brightness(1.1) contrast(1.05);
+    /* Smooth transitions */
+    transition: filter 0.2s, transform 0.2s;
+  }
+  .nav-logo:hover img { filter: brightness(1.15) contrast(1.1) drop-shadow(0 1px 4px rgba(0,0,0,0.1)); }
+  .nav-logo-text {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    font-size: 1.25rem;
+    background: linear-gradient(135deg, #d946a8, #7c3aed);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.02em;
+    display: none;
+  }
+  @media (min-width: 480px) { .nav-logo-text { display: block; } }
+
+  /* ── Desktop links ── */
+  .nav-links {
+    display: none;
+    align-items: center;
+    gap: 0.25rem;
+    margin-left: 1.5rem;
+  }
+  @media (min-width: 768px) { .nav-links { display: flex; } }
+
+  .nav-link {
+    display: flex; align-items: center; gap: 0.35rem;
+    color: rgba(50,20,90,0.85);
+    font-weight: 700;
+    font-size: 0.88rem;
+    text-decoration: none;
+    padding: 0.45rem 0.85rem;
+    border-radius: 50px;
+    transition: background 0.18s, color 0.18s, transform 0.18s;
+    white-space: nowrap;
+  }
+  .nav-link:hover {
+    background: rgba(255,255,255,0.42);
+    color: #5b21b6;
+    transform: translateY(-1px);
+  }
+  .nav-link.active {
+    background: rgba(255,255,255,0.55);
+    color: #7c3aed;
+    animation: rainbowBorder 3s linear infinite;
+    border: 1px solid #b97aff;
+  }
+  .nav-link-icon { font-size: 1rem; }
+
+  /* ── Countdown ── */
+  .nav-timer-wrap {
+    display: none;
+    align-items: center;
+    gap: 0.6rem;
+    background: rgba(255,255,255,0.22);
+    border: 1px solid rgba(255,255,255,0.4);
+    border-radius: 50px;
+    padding: 0.35rem 0.9rem 0.35rem 0.75rem;
+    flex-shrink: 0;
+  }
+  @media (min-width: 1024px) { .nav-timer-wrap { display: flex; } }
+
+  .nav-timer-label {
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(60,20,100,0.6);
+    white-space: nowrap;
+  }
+
+  .nav-timer-units { display: flex; align-items: center; gap: 0.3rem; }
+  .nav-timer-sep { font-weight: 900; color: rgba(120,60,200,0.4); font-size: 1rem; line-height: 1; margin-bottom: 0.6rem; }
+
+  .nav-timer-unit { display: flex; flex-direction: column; align-items: center; gap: 0.15rem; }
+  .nav-timer-digit {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    font-size: 0.9rem;
+    min-width: 2rem;
+    text-align: center;
+    padding: 0.25rem 0.4rem;
+    border-radius: 8px;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    animation: flip 0.4s ease;
+    animation-play-state: paused;
+  }
+  .nav-timer-digit.flip-anim { animation-play-state: running; }
+  .nav-timer-digit-d { background: linear-gradient(135deg, #f472b6, #db2777); }
+  .nav-timer-digit-h { background: linear-gradient(135deg, #fb923c, #ea580c); }
+  .nav-timer-digit-m { background: linear-gradient(135deg, #facc15, #d97706); }
+  .nav-timer-digit-s { background: linear-gradient(135deg, #a78bfa, #7c3aed); }
+  .nav-timer-sublabel {
+    font-size: 0.6rem;
+    font-weight: 700;
+    color: rgba(70,30,120,0.55);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  /* ── Right actions ── */
+  .nav-actions { display: flex; align-items: center; gap: 0.55rem; margin-left: auto; }
+
+  .nav-cart-btn {
+    display: flex; align-items: center; gap: 0.4rem;
+    background: linear-gradient(135deg, #38bdf8, #34d399);
+    color: #fff;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    border: none;
+    border-radius: 50px;
+    padding: 0.48rem 1rem 0.48rem 0.75rem;
+    cursor: pointer;
+    text-decoration: none;
+    box-shadow: 0 3px 12px rgba(56,189,248,0.35);
+    transition: transform 0.18s, box-shadow 0.18s, filter 0.18s;
+    position: relative;
+    flex-shrink: 0;
+  }
+  .nav-cart-btn:hover {
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 6px 18px rgba(56,189,248,0.45);
+    filter: brightness(1.06);
+  }
+  .nav-cart-btn:active { transform: scale(0.97); }
+  .nav-cart-icon { font-size: 1.1rem; }
+  .nav-cart-label { display: none; }
+  @media (min-width: 480px) { .nav-cart-label { display: inline; } }
+
+  .nav-badge {
+    position: absolute;
+    top: -7px; right: -7px;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #ff4d7d, #f43f5e);
+    color: #fff;
+    font-size: 0.65rem;
+    font-weight: 900;
+    display: flex; align-items: center; justify-content: center;
+    ring: 2px solid white;
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.8);
+    animation: pulse-badge 1.8s ease-in-out infinite;
+  }
+
+  /* ── Hamburger ── */
+  .nav-hamburger {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    width: 38px; height: 38px;
+    background: rgba(255,255,255,0.3);
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 10px;
+    padding: 8px;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.18s;
+    margin-right: 0.75rem;
+  }
+  @media (min-width: 768px) { .nav-hamburger { display: none; } }
+  .nav-hamburger:hover { background: rgba(255,255,255,0.5); }
+  .nav-hamburger span {
+    display: block;
+    height: 2px;
+    background: #5b21b6;
+    border-radius: 2px;
+    transition: transform 0.25s, opacity 0.25s;
+    transform-origin: center;
+  }
+  .nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  /* ── Divider spacer ── */
+  .nav-spacer { flex: 1; }
+
+  /* ── Mobile timer pill ── */
+  .mobile-timer {
+    display: flex;
+    align-items: center;
+    gap: 0.45rem;
+    overflow-x: auto;
+    padding: 0.35rem 1.25rem 0.45rem;
+    background: rgba(255,255,255,0.12);
+    border-top: 1px solid rgba(255,255,255,0.2);
+    scrollbar-width: none;
+  }
+  .mobile-timer::-webkit-scrollbar { display: none; }
+  @media (min-width: 1024px) { .mobile-timer { display: none; } }
+  .mobile-timer-label {
+    font-size: 0.62rem; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.08em;
+    color: rgba(60,20,100,0.6);
+    white-space: nowrap;
+  }
+  .mobile-timer-digit {
+    font-family: 'Nunito', sans-serif;
+    font-weight: 900;
+    font-size: 0.78rem;
+    padding: 0.2rem 0.45rem;
+    border-radius: 7px;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+    white-space: nowrap;
+  }
+  .mobile-timer-sep { font-weight: 900; color: rgba(120,60,200,0.4); font-size: 0.85rem; }
+
+  /* ── Mobile menu drawer ── */
+  .mobile-menu {
+    animation: menuWipe 0.22s ease;
+    background: linear-gradient(
+      160deg,
+      rgba(255,107,157,0.18),
+      rgba(249,160,63,0.14),
+      rgba(185,122,255,0.18)
+    );
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-top: 1px solid rgba(255,255,255,0.25);
+    padding: 0.75rem 1.25rem 1.1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
+  @media (min-width: 768px) { .mobile-menu { display: none !important; } }
+
+  .mobile-link {
+    display: flex; align-items: center; gap: 0.6rem;
+    color: rgba(50,20,90,0.9);
+    font-weight: 700;
+    font-size: 0.95rem;
+    text-decoration: none;
+    padding: 0.65rem 0.85rem;
+    border-radius: 12px;
+    transition: background 0.15s, transform 0.15s;
+    animation: fadeInUp 0.22s ease backwards;
+  }
+  .mobile-link:nth-child(1) { animation-delay: 0.03s; }
+  .mobile-link:nth-child(2) { animation-delay: 0.07s; }
+  .mobile-link:hover {
+    background: rgba(255,255,255,0.45);
+    transform: translateX(4px);
+  }
+  .mobile-search {
+    display: flex; align-items: center; gap: 0.5rem;
+    background: rgba(255,255,255,0.3);
+    border: 1px solid rgba(255,255,255,0.5);
+    border-radius: 12px;
+    padding: 0.6rem 0.85rem;
+    margin-top: 0.3rem;
+    animation: fadeInUp 0.22s 0.1s ease backwards;
+  }
+  .mobile-search-icon { font-size: 1rem; color: #7c3aed; }
+  .mobile-search input {
+    background: transparent;
+    border: none;
+    outline: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    color: rgba(40,10,80,0.85);
+    width: 100%;
+  }
+  .mobile-search input::placeholder { color: rgba(100,60,180,0.45); }
+`;
+
+function injectStyles() {
+  if (document.getElementById('lingo-nav-styles')) return;
+  const el = document.createElement('style');
+  el.id = 'lingo-nav-styles';
+  el.textContent = STYLES;
+  document.head.appendChild(el);
+}
+
+/* ── Flip digit component ─────────────────────────────────────── */
+function FlipDigit({ value, colorClass }) {
+  const [flipping, setFlipping] = useState(false);
+  const prevValue = useRef(value);
+
   useEffect(() => {
-    // Set target date to 30 days from now (only once)
-    const targetDate = new Date();
-    targetDate.setDate(targetDate.getDate() + 30);
-
-    const calculateTimeLeft = () => {
-      const difference = targetDate - new Date();
-      
-      if (difference > 0) {
-        setTimeLeft({
-          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
-          hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
-          minutes: Math.floor((difference / 1000 / 60) % 60),
-          seconds: Math.floor((difference / 1000) % 60)
-        });
-      } else {
-        // Timer ended
-        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-      }
-    };
-
-    calculateTimeLeft();
-    const timer = setInterval(calculateTimeLeft, 1000);
-    return () => clearInterval(timer);
-  }, []);
+    if (prevValue.current !== value) {
+      setFlipping(true);
+      const t = setTimeout(() => setFlipping(false), 400);
+      prevValue.current = value;
+      return () => clearTimeout(t);
+    }
+  }, [value]);
 
   return (
-    <nav className="fixed top-0 w-full z-50 bg-gradient-to-r from-red-400 via-yellow-300 to-purple-400 backdrop-blur-md shadow-lg shadow-black/20">
-      <div className="max-w-full mx-auto px-4 md:px-8 py-3">
-        {/* Main Navbar */}
-        <div className="flex justify-between items-center">
-          {/* Left: Logo and Menu Button */}
-          <div className="flex items-center gap-3 md:gap-6">
-            {/* Mobile Menu Button */}
-            <button 
-              className="md:hidden text-white p-2 hover:bg-white/20 rounded-lg transition-all duration-200 active:scale-95"
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              aria-label="Toggle mobile menu"
-            >
-              <span className="material-symbols-outlined text-2xl">
-                {isMobileMenuOpen ? 'close' : 'menu'}
-              </span>
-            </button>
+    <div
+      className={`nav-timer-digit ${colorClass}${flipping ? ' flip-anim' : ''}`}
+    >
+      {String(value).padStart(2, '0')}
+    </div>
+  );
+}
 
-            {/* Logo */}
-            <Link 
-              to="/" 
-              className="flex items-center gap-2 hover:opacity-90 transition-opacity duration-200"
-              aria-label="LingoToys Home"
-            >
-              <img 
-                src="https://res.cloudinary.com/divpqqbtn/image/upload/f_auto,q_auto,w_300/logo_oglzza" 
-                alt="LingoToys Logo"
-                className="h-10 md:h-12 w-auto object-contain"
-              />
-              <span className="hidden sm:inline text-lg md:text-xl font-black bg-gradient-to-r from-pink-600 to-purple-600 bg-clip-text text-transparent font-headline tracking-tight">
-                LingoToys
-              </span>
-            </Link>
-            
-            {/* Desktop Navigation */}
-            <div className="hidden md:flex gap-8 ml-8">
-              <Link 
-                className="text-white hover:text-yellow-100 transition-colors duration-200 font-bold hover:scale-110 transform"
-                to="/shop"
-              >
-                🎮 Toys
-              </Link>
+/* ── Main component ──────────────────────────────────────────────── */
+export default function Navigation() {
+  const [isOpen, setIsOpen] = useState(false);
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const { cart } = useCart();
+  const location = useLocation();
+  const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-              <Link 
-                className="text-white hover:text-yellow-100 transition-colors duration-200 font-bold hover:scale-110 transform"
-                to="/about"
-              >
-                ℹ️ About Us
-              </Link>
+  injectStyles();
+
+  useEffect(() => {
+    const target = new Date();
+    target.setDate(target.getDate() + 30);
+    const tick = () => {
+      const diff = target - new Date();
+      if (diff > 0) {
+        setTimeLeft({
+          days:    Math.floor(diff / 86400000),
+          hours:   Math.floor((diff / 3600000) % 24),
+          minutes: Math.floor((diff / 60000) % 60),
+          seconds: Math.floor((diff / 1000) % 60),
+        });
+      }
+    };
+    tick();
+    const id = setInterval(tick, 1000);
+    return () => clearInterval(id);
+  }, []);
+
+  const isActive = (path) => location.pathname === path;
+
+  const TimerUnits = ({ small = false }) => (
+    <>
+      {[
+        { v: timeLeft.days,    cls: 'nav-timer-digit-d', sub: small ? 'D' : 'Days'  },
+        { v: timeLeft.hours,   cls: 'nav-timer-digit-h', sub: small ? 'H' : 'Hrs'   },
+        { v: timeLeft.minutes, cls: 'nav-timer-digit-m', sub: small ? 'M' : 'Min'   },
+        { v: timeLeft.seconds, cls: 'nav-timer-digit-s', sub: small ? 'S' : 'Sec'   },
+      ].map(({ v, cls, sub }, i) => (
+        <React.Fragment key={sub}>
+          {i > 0 && <span className={small ? 'mobile-timer-sep' : 'nav-timer-sep'}>:</span>}
+          {small ? (
+            <span className={`mobile-timer-digit ${cls}`}>{String(v).padStart(2, '0')}</span>
+          ) : (
+            <div className="nav-timer-unit">
+              <FlipDigit value={v} colorClass={cls} />
+              <span className="nav-timer-sublabel">{sub}</span>
             </div>
-          </div>
+          )}
+        </React.Fragment>
+      ))}
+    </>
+  );
 
-          {/* Center: Countdown Timer */}
-          <div className="hidden lg:flex items-center gap-2 bg-black/20 backdrop-blur-sm px-4 py-2 rounded-full border border-white/20">
-            <span className="text-white/70 text-xs font-bold uppercase tracking-wider">Sale Ends In:</span>
-            <div className="flex gap-1 md:gap-2">
-              {/* Days */}
-              <div className="flex flex-col items-center">
-                <div className="bg-gradient-to-br from-pink-500 to-red-600 text-white px-3 py-1.5 rounded-lg font-black text-sm md:text-base min-w-[3rem] text-center">
-                  {String(timeLeft.days).padStart(2, '0')}
-                </div>
-                <span className="text-white/60 text-[10px] font-bold mt-0.5">Days</span>
-              </div>
-              <div className="text-white/40 font-black text-xl">:</div>
-              
-              {/* Hours */}
-              <div className="flex flex-col items-center">
-                <div className="bg-gradient-to-br from-orange-500 to-red-500 text-white px-3 py-1.5 rounded-lg font-black text-sm md:text-base min-w-[3rem] text-center">
-                  {String(timeLeft.hours).padStart(2, '0')}
-                </div>
-                <span className="text-white/60 text-[10px] font-bold mt-0.5">Hrs</span>
-              </div>
-              <div className="text-white/40 font-black text-xl">:</div>
-              
-              {/* Minutes */}
-              <div className="flex flex-col items-center">
-                <div className="bg-gradient-to-br from-yellow-500 to-orange-500 text-white px-3 py-1.5 rounded-lg font-black text-sm md:text-base min-w-[3rem] text-center">
-                  {String(timeLeft.minutes).padStart(2, '0')}
-                </div>
-                <span className="text-white/60 text-[10px] font-bold mt-0.5">Min</span>
-              </div>
-              <div className="text-white/40 font-black text-xl">:</div>
-              
-              {/* Seconds */}
-              <div className="flex flex-col items-center">
-                <div className="bg-gradient-to-br from-purple-500 to-pink-600 text-white px-3 py-1.5 rounded-lg font-black text-sm md:text-base min-w-[3rem] text-center">
-                  {String(timeLeft.seconds).padStart(2, '0')}
-                </div>
-                <span className="text-white/60 text-[10px] font-bold mt-0.5">Sec</span>
-              </div>
-            </div>
-          </div>
+  return (
+    <nav className="nav-root" role="navigation" aria-label="Main navigation">
+      {/* Main bar */}
+      <div className="nav-inner">
+        {/* Hamburger (mobile) */}
+        <button
+          className={`nav-hamburger${isOpen ? ' open' : ''}`}
+          onClick={() => setIsOpen(!isOpen)}
+          aria-label={isOpen ? 'Close menu' : 'Open menu'}
+          aria-expanded={isOpen}
+        >
+          <span /><span /><span />
+        </button>
 
-          {/* Right: Search and Cart */}
-          <div className="flex items-center gap-3 md:gap-4">
-            {/* Search Bar - Desktop Only */}
+        {/* Logo */}
+        <Link to="/" className="nav-logo" aria-label="LingoToys home">
+          <img
+            src="https://res.cloudinary.com/divpqqbtn/image/upload/f_auto,q_auto,w_300/logo_oglzza"
+            alt="LingoToys"
+          />
+          <span className="nav-logo-text">LingoToys</span>
+        </Link>
 
+        {/* Desktop nav links */}
+        <div className="nav-links" role="menubar">
+          <Link
+            to="/shop"
+            className={`nav-link${isActive('/shop') ? ' active' : ''}`}
+            role="menuitem"
+          >
+            <span className="nav-link-icon">🎮</span> Toys
+          </Link>
+          <Link
+            to="/about"
+            className={`nav-link${isActive('/about') ? ' active' : ''}`}
+            role="menuitem"
+          >
+            <span className="nav-link-icon">ℹ️</span> About Us
+          </Link>
+        </div>
 
-            {/* Cart Button */}
-            <Link
-              to="/cart"
-              className="bg-gradient-to-r from-blue-400 to-green-400 text-white px-3 md:px-4 py-2 rounded-full font-bold hover:scale-110 hover:shadow-lg transition-all duration-200 active:scale-95 inline-flex items-center gap-2 shadow-md relative group"
-            >
-              <span className="material-symbols-outlined text-lg">shopping_cart</span>
-              <span className="hidden sm:inline text-sm md:text-base">Cart</span>
-              
-              {/* Cart Counter Badge */}
-              {totalCartItems > 0 && (
-                <span className="absolute -top-2 -right-2 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs font-black rounded-full w-6 h-6 flex items-center justify-center shadow-lg ring-2 ring-white animate-pulse">
-                  {totalCartItems}
-                </span>
-              )}
-            </Link>
+        <div className="nav-spacer" />
+
+        {/* Desktop countdown */}
+        <div className="nav-timer-wrap" aria-label="Sale countdown timer">
+          <span className="nav-timer-label">Launching in</span>
+          <div className="nav-timer-units">
+            <TimerUnits />
           </div>
         </div>
 
-        {/* Mobile Countdown Timer */}
-        <div className="lg:hidden mt-3 bg-black/20 backdrop-blur-sm px-3 py-2 rounded-lg border border-white/20 overflow-x-auto">
-          <div className="flex items-center gap-1 min-w-max">
-            <span className="text-white/70 text-xs font-bold whitespace-nowrap">Launching:</span>
-            
-            {/* Days */}
-            <div className="flex flex-col items-center">
-              <div className="bg-gradient-to-br from-pink-500 to-red-600 text-white px-2 py-1 rounded-md font-black text-xs min-w-[2.5rem] text-center">
-                {String(timeLeft.days).padStart(2, '0')}
-              </div>
-              <span className="text-white/60 text-[8px] font-bold mt-0.5">D</span>
-            </div>
-            <div className="text-white/40 font-bold text-sm">:</div>
-            
-            {/* Hours */}
-            <div className="flex flex-col items-center">
-              <div className="bg-gradient-to-br from-orange-500 to-red-500 text-white px-2 py-1 rounded-md font-black text-xs min-w-[2.5rem] text-center">
-                {String(timeLeft.hours).padStart(2, '0')}
-              </div>
-              <span className="text-white/60 text-[8px] font-bold mt-0.5">H</span>
-            </div>
-            <div className="text-white/40 font-bold text-sm">:</div>
-            
-            {/* Minutes */}
-            <div className="flex flex-col items-center">
-              <div className="bg-gradient-to-br from-yellow-500 to-orange-500 text-white px-2 py-1 rounded-md font-black text-xs min-w-[2.5rem] text-center">
-                {String(timeLeft.minutes).padStart(2, '0')}
-              </div>
-              <span className="text-white/60 text-[8px] font-bold mt-0.5">M</span>
-            </div>
-            <div className="text-white/40 font-bold text-sm">:</div>
-            
-            {/* Seconds */}
-            <div className="flex flex-col items-center">
-              <div className="bg-gradient-to-br from-purple-500 to-pink-600 text-white px-2 py-1 rounded-md font-black text-xs min-w-[2.5rem] text-center">
-                {String(timeLeft.seconds).padStart(2, '0')}
-              </div>
-              <span className="text-white/60 text-[8px] font-bold mt-0.5">S</span>
-            </div>
-          </div>
+        <div className="nav-spacer" style={{ maxWidth: '1.25rem' }} />
+
+        {/* Cart */}
+        <div className="nav-actions">
+          <Link to="/cart" className="nav-cart-btn" aria-label={`Cart, ${totalItems} items`}>
+            <span className="nav-cart-icon material-symbols-outlined">shopping_cart</span>
+            <span className="nav-cart-label">Cart</span>
+            {totalItems > 0 && (
+              <span className="nav-badge" aria-hidden="true">{totalItems}</span>
+            )}
+          </Link>
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="md:hidden bg-gradient-to-r from-red-400 via-yellow-300 to-purple-400 border-t-2 border-white/30 backdrop-blur-sm">
-          <div className="px-4 py-4 space-y-3">
-            <Link 
-              className="block text-white hover:text-yellow-100 transition-colors duration-200 font-bold py-3 px-4 rounded-lg hover:bg-white/20 backdrop-blur-sm" 
-              to="/shop"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              🎮 Toys
-            </Link>
-            <Link 
-              className="block text-white hover:text-yellow-100 transition-colors duration-200 font-bold py-3 px-4 rounded-lg hover:bg-white/20 backdrop-blur-sm" 
-              to="/about"
-              onClick={() => setIsMobileMenuOpen(false)}
-            >
-              ℹ️ About Us
-            </Link>
-            
-            {/* Mobile Search */}
-            <div className="flex items-center bg-white/20 backdrop-blur-sm px-4 py-2 rounded-lg border border-white/30 mt-4">
-              <span className="material-symbols-outlined text-white text-sm mr-2">
-                search
-              </span>
-              <input
-                className="bg-transparent border-none focus:ring-0 text-sm w-full p-0 outline-none text-white placeholder-white/60"
-                placeholder="Search toys..."
-                type="text"
-              />
-            </div>
+      {/* Mobile timer strip */}
+      <div className="mobile-timer" aria-label="Sale countdown timer">
+        <span className="mobile-timer-label">Launching in</span>
+        <TimerUnits small />
+      </div>
+
+      {/* Mobile drawer */}
+      {isOpen && (
+        <div className="mobile-menu" role="menu">
+          <Link
+            className="mobile-link"
+            to="/shop"
+            role="menuitem"
+            onClick={() => setIsOpen(false)}
+          >
+            🎮 Toys
+          </Link>
+          <Link
+            className="mobile-link"
+            to="/about"
+            role="menuitem"
+            onClick={() => setIsOpen(false)}
+          >
+            ℹ️ About Us
+          </Link>
+          <div className="mobile-search">
+            <span className="mobile-search-icon material-symbols-outlined">search</span>
+            <input
+              type="text"
+              placeholder="Search toys…"
+              aria-label="Search toys"
+            />
           </div>
         </div>
       )}

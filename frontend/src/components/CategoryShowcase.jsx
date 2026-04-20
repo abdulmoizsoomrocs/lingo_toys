@@ -44,30 +44,36 @@ export default function CategoryShowcase() {
 
         {/* Category Cards Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {categories.map((category) => (
+          {categories.map((category, index) => (
             <div
               key={category.id}
               id={category.id}
               onClick={() => handleCategoryClick(category.id)}
-              className="group relative overflow-hidden rounded-xl bg-surface-container-low h-[450px] flex flex-col justify-end transition-all hover:-translate-y-2 cursor-pointer hover:ring-4 hover:ring-purple-300/50 hover:shadow-xl"
+              className="group relative overflow-hidden rounded-2xl bg-surface-container-low h-[450px] flex flex-col justify-end transition-all hover:-translate-y-3 cursor-pointer hover:ring-4 hover:ring-purple-400/70 hover:shadow-2xl shadow-lg animate-fade-in"
+              style={{
+                animationDelay: `${index * 100}ms`
+              }}
             >
               <img
                 alt={category.title}
-                className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                className="absolute inset-0 w-full h-full object-cover group-hover:scale-120 transition-transform duration-1000"
                 src={category.image}
               />
 
-              <div className={`absolute inset-0 bg-gradient-to-t ${category.bgColor} opacity-75`}></div>
+              <div className={`absolute inset-0 bg-gradient-to-t ${category.bgColor} opacity-85 group-hover:opacity-75 transition-opacity duration-300`}></div>
 
-              <div className="relative z-10 text-white p-6">
-                <h3 className="text-3xl font-black mb-2 font-headline">
+              {/* Shine Effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 group-hover:via-white/20 transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
+
+              <div className="relative z-10 text-white p-6 transform group-hover:scale-105 transition-transform duration-300">
+                <h3 className="text-3xl md:text-4xl font-black mb-2 font-headline drop-shadow-lg group-hover:drop-shadow-2xl transition-all duration-300">
                   {category.title}
                 </h3>
-                <p className="text-white/90 mb-6 text-sm md:text-base">
+                <p className="text-white/95 mb-6 text-sm md:text-base drop-shadow-md group-hover:drop-shadow-lg transition-all duration-300">
                   {category.description}
                 </p>
 
-                <span className={`inline-flex items-center justify-center w-12 h-12 rounded-full ${category.iconBg} ${category.iconText} material-symbols-outlined transition-transform duration-300 group-hover:scale-110`}>
+                <span className={`inline-flex items-center justify-center w-12 h-12 rounded-full ${category.iconBg} ${category.iconText} material-symbols-outlined transition-all duration-300 group-hover:scale-125 group-hover:rotate-45 group-hover:shadow-lg shadow-md`}>
                   arrow_outward
                 </span>
               </div>

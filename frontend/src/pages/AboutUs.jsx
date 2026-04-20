@@ -8,18 +8,20 @@ export default function AboutUs() {
       <main className="pt-24">
         <section className="px-8 py-16 md:py-24 max-w-7xl mx-auto overflow-hidden">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            <div className="z-10">
-              <span className="inline-block px-6 py-2 rounded-full bg-gradient-to-r from-cyan-400 to-blue-400 text-white font-bold text-sm mb-6 uppercase tracking-widest shadow-md">✨ Our Origin Story</span>
-              <h1 className="text-5xl md:text-7xl font-extrabold bg-gradient-to-r from-green-600 via-teal-600 to-blue-600 bg-clip-text text-transparent leading-tight mb-8">Where Science Meets <span className="italic text-pink-600">Sakura</span>.</h1>
-              <p className="text-xl text-teal-700 leading-relaxed mb-10 max-w-xl font-semibold">
+            <div className="z-10 animate-slide-in-left">
+              <span className="inline-block px-6 py-2 rounded-full bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 text-white font-bold text-sm mb-6 uppercase tracking-widest shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 animate-fade-in">✨ Our Origin Story</span>
+              <h1 className="text-5xl md:text-7xl font-extrabold bg-gradient-to-r from-green-600 via-teal-600 to-blue-600 bg-clip-text text-transparent leading-tight mb-8 drop-shadow-lg hover:drop-shadow-2xl transition-all duration-300 animate-fade-in" style={{animationDelay: '100ms'}}>
+                Where Science Meets <span className="italic bg-gradient-to-r from-pink-600 to-orange-600 bg-clip-text text-transparent drop-shadow-lg">Sakura</span>.
+              </h1>
+              <p className="text-xl text-teal-700 leading-relaxed mb-10 max-w-xl font-semibold drop-shadow-md hover:drop-shadow-lg transition-all duration-300 animate-fade-in" style={{animationDelay: '200ms'}}>
                 LingoToys was born in a small workshop where mechanical engineering met hand-drawn animation. We didn't just want to build robots; we wanted to build characters with souls and stories.
               </p>
-              <div className="flex gap-4">
+              <div className="flex gap-4 animate-fade-in" style={{animationDelay: '300ms'}}>
    <a
   href="https://www.instagram.com/lingo_toys?igsh=MTdvcTJyNXpyaWUyaQ%3D%3D&utm_source=qr"
   target="_blank"
   rel="noopener noreferrer"
-  className="inline-block px-8 py-4 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-lg font-bold hover:shadow-lg transition-all hover:-translate-y-1 shadow-md"
+  className="inline-block px-8 py-4 bg-gradient-to-r from-blue-500 via-cyan-500 to-teal-500 text-white rounded-lg font-bold hover:shadow-2xl transition-all hover:-translate-y-2 hover:scale-110 shadow-md active:scale-95 border-2 border-white/30"
 >
   🚀 Join the Adventure
 </a>
@@ -28,41 +30,43 @@ export default function AboutUs() {
   href="https://www.youtube.com/@Lingo_Toys"
   target="_blank"
   rel="noopener noreferrer"
-  className="inline-block px-8 py-4 bg-gradient-to-r from-purple-300 to-pink-300 text-purple-900 rounded-lg font-bold hover:shadow-lg transition-all hover:-translate-y-1 shadow-md"
+  className="inline-block px-8 py-4 bg-gradient-to-r from-purple-400 via-pink-400 to-rose-400 text-white rounded-lg font-bold hover:shadow-2xl transition-all hover:-translate-y-2 hover:scale-110 shadow-md active:scale-95 border-2 border-white/30"
 >
   🎬 Watch Our Story
 </a>
               </div>
             </div>
-            <div className="relative">
-              <div className="absolute -top-10 -right-10 w-64 h-64 bg-gradient-to-br from-cyan-300 to-blue-300 rounded-full opacity-50 blur-3xl"></div>
-              <div className="relative rounded-xl overflow-hidden shadow-2xl border-4 border-cyan-400 rotate-2 hover:rotate-0 transition-transform duration-500">
+            <div className="relative animate-fade-in" style={{animationDelay: '400ms'}}>
+              <div className="absolute -top-10 -right-10 w-64 h-64 bg-gradient-to-br from-cyan-300 via-blue-300 to-purple-300 rounded-full opacity-60 blur-3xl animate-pulse"></div>
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl border-4 border-cyan-400 rotate-2 hover:rotate-0 hover:scale-105 transition-all duration-500 group">
                 <img
                   alt="The LingoToys Workshop"
-                  className="w-full aspect-square object-cover"
+                  className="w-full aspect-square object-cover group-hover:scale-120 transition-transform duration-700 group-hover:brightness-110"
                   data-alt="Modern workshop interior with vintage Japanese robot toys, blueprints, and high-tech STEM equipment in warm afternoon sunlight"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuBy72Be718kxfS0ThNMBsqfhbWRqLNqOHQyd5pjOfIrw3oopR0wFvKVHZWogtTpa9q5mMhkhP4ZDwY7Tku11mU37gUwduDBGr-feHsbUlDL_e9E4vPrb2zMC8dabfOOsFr0LAOw45AoKi8XitCmMSrRzI0qwPFYIQQ1EJvpWwlZVy7wJ96F-hyhRRXofG4urCRdEzBIDtKt55ryC3w7C_aNG8O9JQ5WZKsrxfLUPTYfnTxq_Lsx7jWJwUgOgnzmf6aJzV7y64rwyVCN"
                 />
+                {/* Shine overlay */}
+                <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 group-hover:via-white/20 transition-all duration-500 opacity-0 group-hover:opacity-100"></div>
               </div>
-              <div className="absolute -bottom-8 -left-8 bg-gradient-to-br from-yellow-100 to-orange-100 p-6 rounded-lg shadow-xl max-w-xs hidden md:block border-4 border-orange-300">
+              <div className="absolute -bottom-8 -left-8 bg-gradient-to-br from-yellow-100 via-orange-100 to-red-100 p-6 rounded-2xl shadow-2xl max-w-xs hidden md:block border-4 border-orange-400 hover:shadow-2xl hover:scale-105 hover:-translate-y-2 transition-all duration-300 animate-bounce-slow group">
                 <div className="flex items-center gap-3 mb-2">
-                  <span className="w-3 h-3 rounded-full bg-gradient-to-r from-red-500 to-pink-500"></span>
-                  <span className="font-bold bg-gradient-to-r from-red-600 to-pink-600 bg-clip-text text-transparent">Prototype #01</span>
+                  <span className="w-3 h-3 rounded-full bg-gradient-to-r from-red-500 via-pink-500 to-rose-500 animate-pulse"></span>
+                  <span className="font-bold bg-gradient-to-r from-red-600 to-pink-600 bg-clip-text text-transparent group-hover:scale-110 transition-transform duration-300">Prototype #01</span>
                 </div>
-                <p className="text-sm text-orange-900 font-semibold">The "Neo-Tech Samurai" was our very first kit, combining hydraulics with traditional armor design.</p>
+                <p className="text-sm text-orange-900 font-semibold drop-shadow-sm">The "Neo-Tech Samurai" was our very first kit, combining hydraulics with traditional armor design.</p>
               </div>
             </div>
           </div>
         </section>
 
-        <section className="bg-gradient-to-br from-purple-100 via-pink-100 to-red-100 py-24 rounded-t-xl">
+        <section className="bg-gradient-to-br from-purple-100 via-pink-100 to-red-100 py-24 rounded-t-3xl">
           <div className="px-8 max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-black bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent mb-4">🏛️ The Workshop Pillars</h2>
-              <p className="text-purple-700 max-w-2xl mx-auto font-semibold text-lg">We are reimagining educational toys through a lens of artistic wonder and technical precision.</p>
+            <div className="text-center mb-16 animate-fade-in">
+              <h2 className="text-4xl md:text-5xl font-black bg-gradient-to-r from-purple-600 via-pink-600 to-red-600 bg-clip-text text-transparent mb-4 drop-shadow-lg hover:drop-shadow-2xl transition-all duration-300 inline-block">🏛️ The Workshop Pillars</h2>
+              <p className="text-purple-700 max-w-2xl mx-auto font-semibold text-lg drop-shadow-md hover:drop-shadow-lg transition-all duration-300 mt-6">We are reimagining educational toys through a lens of artistic wonder and technical precision.</p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="md:col-span-2 bg-gradient-to-br from-green-100 to-emerald-100 p-12 rounded-xl shadow-lg flex flex-col justify-between group hover:shadow-2xl transition-shadow border-4 border-green-300">
+              <div className="md:col-span-2 bg-gradient-to-br from-green-100 via-emerald-100 to-teal-100 p-12 rounded-2xl shadow-lg flex flex-col justify-between group hover:shadow-2xl hover:scale-105 hover:-translate-y-2 transition-all duration-300 border-4 border-green-400 animate-fade-in">
                 <div>
                   <div className="w-16 h-16 bg-gradient-to-br from-green-400 to-emerald-400 rounded-lg flex items-center justify-center mb-8 group-hover:scale-110 transition-transform shadow-md">
                     <span className="material-symbols-outlined text-white text-3xl">rocket_launch</span>
@@ -75,7 +79,7 @@ export default function AboutUs() {
                   <span className="px-3 py-1 bg-gradient-to-r from-green-300 to-emerald-300 rounded-full text-xs font-bold text-green-900">#Creativity</span>
                 </div>
               </div>
-              <div className="bg-gradient-to-br from-blue-400 to-cyan-400 p-12 rounded-xl text-white shadow-lg hover:shadow-2xl transition-shadow flex flex-col justify-between relative overflow-hidden">
+              <div className="bg-gradient-to-br from-blue-400 via-cyan-400 to-teal-400 p-12 rounded-2xl text-white shadow-lg hover:shadow-2xl hover:scale-105 hover:-translate-y-2 transition-all duration-300 flex flex-col justify-between relative overflow-hidden animate-fade-in" style={{animationDelay: '100ms'}}>
                 <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-10 rounded-full -mr-10 -mt-10"></div>
                 <div>
                   <div className="w-16 h-16 bg-white/30 rounded-lg flex items-center justify-center mb-8">
@@ -89,20 +93,20 @@ export default function AboutUs() {
                   <span className="text-sm font-bold uppercase tracking-widest">Est. 2024</span>
                 </div>
               </div>
-              <div className="bg-gradient-to-br from-orange-300 to-yellow-300 p-8 rounded-xl shadow-lg hover:translate-y-[-8px] transition-transform border-4 border-orange-400">
-                <span className="material-symbols-outlined text-orange-900 text-4xl mb-4">handyman</span>
-                <h4 className="text-xl font-bold text-orange-900 mb-3">✋ Tactile First</h4>
-                <p className="text-orange-800 text-sm font-semibold">We believe in the power of physical building. No screens, just pieces, hands, and imagination.</p>
+              <div className="bg-gradient-to-br from-orange-300 via-yellow-300 to-amber-300 p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-3 hover:scale-110 transition-all duration-300 border-4 border-orange-400 group animate-fade-in" style={{animationDelay: '200ms'}}>
+                <span className="material-symbols-outlined text-orange-900 text-4xl mb-4 group-hover:scale-125 group-hover:rotate-12 transition-all duration-300 inline-block">handyman</span>
+                <h4 className="text-xl font-bold text-orange-900 mb-3 group-hover:scale-110 transition-transform duration-300">✋ Tactile First</h4>
+                <p className="text-orange-800 text-sm font-semibold group-hover:text-orange-900 transition-colors duration-300">We believe in the power of physical building. No screens, just pieces, hands, and imagination.</p>
               </div>
-              <div className="bg-gradient-to-br from-pink-300 to-rose-300 p-8 rounded-xl shadow-lg hover:translate-y-[-8px] transition-transform border-4 border-pink-400">
-                <span className="material-symbols-outlined text-pink-900 text-4xl mb-4">auto_awesome</span>
-                <h4 className="text-xl font-bold text-pink-900 mb-3">📖 Narrative Driven</h4>
-                <p className="text-pink-800 text-sm font-semibold">Every kit includes a manga chapter that provides context and motivation for the build.</p>
+              <div className="bg-gradient-to-br from-pink-300 via-rose-300 to-red-300 p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-3 hover:scale-110 transition-all duration-300 border-4 border-pink-400 group animate-fade-in" style={{animationDelay: '300ms'}}>
+                <span className="material-symbols-outlined text-pink-900 text-4xl mb-4 group-hover:scale-125 group-hover:rotate-12 transition-all duration-300 inline-block">auto_awesome</span>
+                <h4 className="text-xl font-bold text-pink-900 mb-3 group-hover:scale-110 transition-transform duration-300">📖 Narrative Driven</h4>
+                <p className="text-pink-800 text-sm font-semibold group-hover:text-pink-900 transition-colors duration-300">Every kit includes a manga chapter that provides context and motivation for the build.</p>
               </div>
-              <div className="bg-gradient-to-br from-purple-300 to-indigo-300 p-8 rounded-xl shadow-lg hover:translate-y-[-8px] transition-transform border-4 border-purple-400 flex items-center justify-center">
-                <div className="text-center">
-                  <span className="text-4xl font-black text-purple-900 block">100%</span>
-                  <span className="text-xs font-bold uppercase text-purple-900 tracking-wider">♻️ Recyclable Acrylic</span>
+              <div className="bg-gradient-to-br from-purple-300 via-indigo-300 to-blue-300 p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-3 hover:scale-110 transition-all duration-300 border-4 border-purple-400 flex items-center justify-center group animate-fade-in" style={{animationDelay: '400ms'}}>
+                <div className="text-center group-hover:scale-110 transition-transform duration-300">
+                  <span className="text-4xl font-black text-purple-900 block group-hover:text-purple-800 transition-colors duration-300">100%</span>
+                  <span className="text-xs font-bold uppercase text-purple-900 tracking-wider group-hover:text-purple-800 transition-colors duration-300">♻️ Recyclable Acrylic</span>
                 </div>
               </div>
             </div>
@@ -111,24 +115,24 @@ export default function AboutUs() {
 
         <section className="py-24 px-8 max-w-7xl mx-auto overflow-hidden">
           <div className="flex flex-col md:flex-row gap-16 items-center">
-            <div className="md:w-1/2 relative order-2 md:order-1">
-              <div className="grid grid-cols-2 gap-4">
+            <div className="md:w-1/2 relative order-2 md:order-1 animate-fade-in">
+              <div className="grid grid-cols-2 gap-4 group">
                 <div className="space-y-4">
                   <img
                     alt="Details"
-                    className="rounded-xl aspect-[3/4] object-cover shadow-lg border-4 border-purple-400"
+                    className="rounded-2xl aspect-[3/4] object-cover shadow-lg border-4 border-purple-400 hover:scale-110 transition-transform duration-500 hover:shadow-2xl group-hover:brightness-110"
                     data-alt="Close-up of colorful mechanical gears and anime-style character figurines on a bright yellow work surface"
 src="https://images.unsplash.com/photo-1588072432836-e10032774350?q=80&w=1200&auto=format&fit=crop"
 />
-                  <div className="h-32 bg-gradient-to-br from-purple-400 to-pink-400 rounded-xl flex items-center justify-center p-4 border-4 border-purple-400">
-                    <span className="text-white font-black text-center text-sm">🔧 CRAFTED WITH PRECISION</span>
+                  <div className="h-32 bg-gradient-to-br from-purple-400 via-pink-400 to-rose-400 rounded-2xl flex items-center justify-center p-4 border-4 border-purple-400 hover:scale-110 transition-all duration-500 hover:shadow-2xl group-hover:brightness-110 shadow-lg">
+                    <span className="text-white font-black text-center text-sm drop-shadow-lg">🔧 CRAFTED WITH PRECISION</span>
                   </div>
                 </div>
                 <div className="space-y-4 pt-12">
-                  <div className="h-48 bg-gradient-to-br from-orange-300 to-yellow-300 rounded-xl overflow-hidden border-4 border-orange-400">
+                  <div className="h-48 bg-gradient-to-br from-orange-300 via-yellow-300 to-amber-300 rounded-2xl overflow-hidden border-4 border-orange-400 hover:scale-110 transition-all duration-500 hover:shadow-2xl group-hover:brightness-110 shadow-lg">
                     <img
                       alt="Anime Inspiration"
-                      className="w-full h-full object-cover opacity-70"
+                      className="w-full h-full object-cover opacity-70 hover:opacity-100 transition-opacity duration-500 hover:scale-120"
                       data-alt="Digital art illustration of a futuristic city in a soft anime style with vibrant neon lights and lush greenery"
 src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?q=80&w=1200&auto=format&fit=crop
 "
@@ -136,7 +140,7 @@ src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?q=80&w=1200&au
                   </div>
                   <img
                     alt="Assembly"
-                    className="rounded-xl aspect-square object-cover shadow-lg border-4 border-pink-400"
+                    className="rounded-2xl aspect-square object-cover shadow-lg border-4 border-pink-400 hover:scale-110 transition-transform duration-500 hover:shadow-2xl group-hover:brightness-110"
                     data-alt="Hands assembling a complex mechanical wooden toy robot with precision tools on a clean white desk"
 src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?q=80&w=1200&auto=format&fit=crop
 "
@@ -144,32 +148,35 @@ src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?q=80&w=1200&au
                 </div>
               </div>
             </div>
-            <div className="md:w-1/2 order-1 md:order-2">
-              <h2 className="text-4xl font-extrabold bg-gradient-to-r from-green-600 to-teal-600 bg-clip-text text-transparent mb-8 leading-tight">🌉 Bridging Two Worlds</h2>
+            <div className="md:w-1/2 order-1 md:order-2 animate-fade-in" style={{animationDelay: '200ms'}}>
+              <h2 className="text-4xl md:text-5xl font-extrabold bg-gradient-to-r from-green-600 via-teal-600 to-blue-600 bg-clip-text text-transparent mb-8 leading-tight drop-shadow-lg hover:drop-shadow-2xl transition-all duration-300">🌉 Bridging Two Worlds</h2>
               <div className="space-y-6 text-teal-700 text-lg">
-                <p className="font-semibold">LingoToys was founded on a simple observation: STEM education often lacks the emotional connection that drives lifelong passion. Simultaneously, Anime storytelling offers some of the most inspiring technological concepts ever imagined.</p>
-                <p className="font-bold text-pink-600 text-xl">💡 We decided to build the bridge.</p>
-                <p className="font-semibold">By integrating technical building kits with high-stakes narrative arcs, we transform "homework" into an "epic quest." Our kits aren't just toys—they are artifacts from a world your children help create.</p>
+                <p className="font-semibold drop-shadow-sm hover:drop-shadow-md transition-all duration-300 hover:text-teal-800">LingoToys was founded on a simple observation: STEM education often lacks the emotional connection that drives lifelong passion. Simultaneously, Anime storytelling offers some of the most inspiring technological concepts ever imagined.</p>
+                <p className="font-bold text-pink-600 text-xl drop-shadow-md hover:drop-shadow-lg transition-all duration-300 hover:scale-105 inline-block">💡 We decided to build the bridge.</p>
+                <p className="font-semibold drop-shadow-sm hover:drop-shadow-md transition-all duration-300 hover:text-teal-800">By integrating technical building kits with high-stakes narrative arcs, we transform "homework" into an "epic quest." Our kits aren't just toys—they are artifacts from a world your children help create.</p>
               </div>
-              <div className="mt-10 flex items-center gap-6">
+              <div className="mt-10 flex items-center gap-6 animate-fade-in group" style={{animationDelay: '300ms'}}>
                 <div className="flex -space-x-4">
-                  <img alt="Team 1" className="w-12 h-12 rounded-full border-4 border-green-400 shadow-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBFIhQnQ5QM7O0seeR6oZFVS7P6ouSksSA3znZkB6_zaLeS9QGYaoCPeWyI5WfCp6Zntvhzl0SChVKSIF4d3Hka1Y9Sj1WJhpN4Riro4js1yzMhypABr_M-hJl8X532ie8fDF83ZK6REWHfFlmbZ_LkBMBVd6Eb8FJoG3L0fGKhB0o_m46p-ubU8ciUCLVoFylEAEP8iMpym8Vxk8N1yzHxUqnbqV6lLRgQBuEpVhWIZESUxDuYG7-Gk-6Z0tJsKU_DyfL4aqFMTUz" />
-                  <img alt="Team 2" className="w-12 h-12 rounded-full border-4 border-purple-400 shadow-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnAWKbcA4VJR-6hwGAQyI5LU-29mWoq7A9V743SRjiauI1fKMEfb6zzFnWkKR54cB3ou3iWbkhJ1GmUsbD7OJhxOb6J8ZpjRxMmGKf3WYpNj_bD4GT4mTWIik6ZLVtLyQDBuOPswl_JD0zRtsZXrQYyf5e88cZqXXOCMkVlXptJL50EJd9aYpVmdHM1w9_ZGBrvMvSXawNUJDy23PBTVk06oySYtFiEbo5BB9oBC-ZErKE8Jfvo_Jd0KE3vsYvQvkzjTVy5SR0x-Vh" />
-                  <img alt="Team 3" className="w-12 h-12 rounded-full border-4 border-pink-400 shadow-md" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArUegXQDUHANJi8qBIXaB6PPHkleKwi57fdA_2SOmrN9R3tveOBLhQVsc_utNzgE7PwFcwFTiV2k9wgOmMbnB6PxHEjMEgY-gCjjz-P6KHkxGwoP_hyd6B5GpsRHbxjmanToTdsonv5wwi24WWngpBbek_kqW4y-9I7dGG-MZ2scM6yqoja-IrOE_j9J9SKQbXQoUr5-vabeNrcjtVI4Gucq9ukCxsBaFbg_8poJcb68WVDirhyVmqB0MfA7g7EipDKdudopgrh6eJ" />
+                  <img alt="Team 1" className="w-12 h-12 rounded-full border-4 border-green-400 shadow-md hover:scale-125 hover:z-10 transition-all duration-300 cursor-pointer group-hover:brightness-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBFIhQnQ5QM7O0seeR6oZFVS7P6ouSksSA3znZkB6_zaLeS9QGYaoCPeWyI5WfCp6Zntvhzl0SChVKSIF4d3Hka1Y9Sj1WJhpN4Riro4js1yzMhypABr_M-hJl8X532ie8fDF83ZK6REWHfFlmbZ_LkBMBVd6Eb8FJoG3L0fGKhB0o_m46p-ubU8ciUCLVoFylEAEP8iMpym8Vxk8N1yzHxUqnbqV6lLRgQBuEpVhWIZESUxDuYG7-Gk-6Z0tJsKU_DyfL4aqFMTUz" />
+                  <img alt="Team 2" className="w-12 h-12 rounded-full border-4 border-purple-400 shadow-md hover:scale-125 hover:z-10 transition-all duration-300 cursor-pointer group-hover:brightness-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAnAWKbcA4VJR-6hwGAQyI5LU-29mWoq7A9V743SRjiauI1fKMEfb6zzFnWkKR54cB3ou3iWbkhJ1GmUsbD7OJhxOb6J8ZpjRxMmGKf3WYpNj_bD4GT4mTWIik6ZLVtLyQDBuOPswl_JD0zRtsZXrQYyf5e88cZqXXOCMkVlXptJL50EJd9aYpVmdHM1w9_ZGBrvMvSXawNUJDy23PBTVk06oySYtFiEbo5BB9oBC-ZErKE8Jfvo_Jd0KE3vsYvQvkzjTVy5SR0x-Vh" />
+                  <img alt="Team 3" className="w-12 h-12 rounded-full border-4 border-pink-400 shadow-md hover:scale-125 hover:z-10 transition-all duration-300 cursor-pointer group-hover:brightness-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuArUegXQDUHANJi8qBIXaB6PPHkleKwi57fdA_2SOmrN9R3tveOBLhQVsc_utNzgE7PwFcwFTiV2k9wgOmMbnB6PxHEjMEgY-gCjjz-P6KHkxGwoP_hyd6B5GpsRHbxjmanToTdsonv5wwi24WWngpBbek_kqW4y-9I7dGG-MZ2scM6yqoja-IrOE_j9J9SKQbXQoUr5-vabeNrcjtVI4Gucq9ukCxsBaFbg_8poJcb68WVDirhyVmqB0MfA7g7EipDKdudopgrh6eJ" />
                 </div>
-                <span className="text-sm font-bold text-transparent bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text">👥 Meet the Designers →</span>
+                <span className="text-sm font-bold text-transparent bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text group-hover:scale-110 transition-transform duration-300 inline-block">👥 Meet the Designers →</span>
               </div>
             </div>
           </div>
         </section>
 
         <section className="px-8 pb-24 max-w-7xl mx-auto">
-          <div className="bg-gradient-to-br from-red-300 via-yellow-300 to-green-300 p-12 md:p-20 rounded-xl relative overflow-hidden text-center border-4 border-yellow-400 shadow-xl">
-            <div className="absolute inset-0 opacity-10" style={{ backgroundImage: "radial-gradient(circle at 2px 2px, white 1px, transparent 0)", backgroundSize: "40px 40px" }}></div>
-            <h2 className="text-4xl md:text-5xl font-black text-white mb-6 relative z-10 drop-shadow-lg">🎉 Ready to start your first build?</h2>
-            <p className="text-yellow-900 text-xl mb-10 max-w-2xl mx-auto relative z-10 font-bold drop-shadow-md">Explore our latest kits and join a community of thousands of young builders.</p>
-            <a className="inline-flex items-center gap-2 px-10 py-5 bg-white text-transparent bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text rounded-full font-black text-lg hover:scale-105 transition-transform shadow-2xl relative z-10" href="#">
-              <span className="text-white">🛍️ Browse Kits</span> <span className="material-symbols-outlined text-white">arrow_forward</span>
+          <div className="bg-gradient-to-br from-red-300 via-yellow-300 to-green-300 p-12 md:p-20 rounded-3xl relative overflow-hidden text-center border-4 border-yellow-400 shadow-2xl hover:shadow-3xl hover:scale-105 transition-all duration-500 group animate-fade-in">
+            <div className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity duration-300" style={{ backgroundImage: "radial-gradient(circle at 2px 2px, white 1px, transparent 0)", backgroundSize: "40px 40px" }}></div>
+            {/* Animated background orbs */}
+            <div className="absolute top-0 right-0 w-48 h-48 bg-white/20 rounded-full blur-2xl animate-pulse"></div>
+            <div className="absolute bottom-0 left-0 w-48 h-48 bg-white/10 rounded-full blur-2xl animate-pulse" style={{animationDelay: '1s'}}></div>
+            <h2 className="text-4xl md:text-5xl md:text-6xl font-black text-white mb-6 relative z-10 drop-shadow-2xl group-hover:drop-shadow-3xl transition-all duration-300 group-hover:scale-110">🎉 Ready to start your first build?</h2>
+            <p className="text-yellow-900 text-xl mb-10 max-w-2xl mx-auto relative z-10 font-bold drop-shadow-2xl group-hover:drop-shadow-3xl transition-all duration-300 group-hover:text-yellow-800">Explore our latest kits and join a community of thousands of young builders.</p>
+            <a className="inline-flex items-center gap-2 px-10 py-5 bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 text-white rounded-full font-black text-lg hover:scale-110 hover:shadow-2xl transition-all shadow-2xl relative z-10 active:scale-95 border-2 border-white/30" href="#">
+              <span className="text-white drop-shadow-lg group-hover:scale-110 transition-transform duration-300 inline-block">🛍️ Browse Kits</span> <span className="material-symbols-outlined text-white group-hover:translate-x-2 transition-transform duration-300">arrow_forward</span>
             </a>
           </div>
         </section>
