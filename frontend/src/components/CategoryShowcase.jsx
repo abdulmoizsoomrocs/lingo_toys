@@ -1,13 +1,20 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 const categories = [
-  {id:'education',title:'Education',description:'Smart toys that boost learning and creativity.',image:'https://images.unsplash.com/photo-1588072432836-e10032774350?q=80&w=1200&auto=format&fit=crop',bgColor:'bg-gradient-to-t from-primary/85',iconBg:'bg-primary-container',iconText:'text-on-primary-container'},
-  {id:'indoor-1',title:'Indoor',description:'Fun and engaging toys for indoor playtime.',image:'https://images.unsplash.com/photo-1587654380645-4fcf6f86e0dc?q=80&w=1200&auto=format&fit=crop',bgColor:'bg-gradient-to-t from-tertiary/85',iconBg:'bg-tertiary-container',iconText:'text-on-tertiary-container'},
-  {id:'outdoor',title:'Outdoor',description:'Active toys for outdoor adventures and fun.',image:'https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?q=80&w=1200&auto=format&fit=crop',bgColor:'bg-gradient-to-t from-secondary/85',iconBg:'bg-secondary-container',iconText:'text-on-secondary-container'},
-  {id:'soft-toys',title:'Soft Toys',description:'Cute and cuddly companions for all ages.',image:'https://images.unsplash.com/photo-1583512603805-3cc6b41f3edb?q=80&w=1200&auto=format&fit=crop',bgColor:'bg-gradient-to-t from-primary/80',iconBg:'bg-primary-container',iconText:'text-on-primary-container'}
+  {id:'educational',title:'Education',description:'Smart toys that boost learning and creativity.',image:'https://res.cloudinary.com/divpqqbtn/image/upload/f_auto,q_auto/edu_qvfy4s',bgColor:'bg-gradient-to-t from-primary/85',iconBg:'bg-primary-container',iconText:'text-on-primary-container'},
+  {id:'indoor',title:'Indoor',description:'Fun and engaging toys for indoor playtime.',image:'https://res.cloudinary.com/divpqqbtn/image/upload/f_auto,q_auto/WhatsApp_Image_2026-04-20_at_7.55.17_PM_zwzy8v',bgColor:'bg-gradient-to-t from-tertiary/90',iconBg:'bg-tertiary-container',iconText:'text-on-tertiary-container'},
+  {id:'outdoor',title:'Outdoor',description:'Active toys for outdoor adventures and fun.',image:'https://res.cloudinary.com/divpqqbtn/image/upload/f_auto,q_auto/outdoor_tntzil',bgColor:'bg-gradient-to-t from-secondary/85',iconBg:'bg-secondary-container',iconText:'text-on-secondary-container'},
+  {id:'stuff',title:'Stuff Toys',description:'Cute and cuddly companions for all ages.',image:'https://res.cloudinary.com/divpqqbtn/image/upload/f_auto,q_auto/WhatsApp_Image_2026-04-20_at_9.44.19_PM_dhjx41',bgColor:'bg-gradient-to-t from-primary/80',iconBg:'bg-primary-container',iconText:'text-on-primary-container'}
 ];
 
 export default function CategoryShowcase() {
+  const navigate = useNavigate();
+
+  const handleCategoryClick = (categoryId) => {
+    navigate(`/shop?filter=${categoryId}`);
+  };
+
   return (
     <section className="py-24 px-8 bg-surface">
       <div className="max-w-7xl mx-auto">
@@ -35,12 +42,14 @@ export default function CategoryShowcase() {
           </div>
         </div>
 
+        {/* Category Cards Grid */}
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {categories.map((category) => (
             <div
               key={category.id}
               id={category.id}
-              className="group relative overflow-hidden rounded-xl bg-surface-container-low h-[450px] flex flex-col justify-end transition-all hover:-translate-y-2 cursor-pointer"
+              onClick={() => handleCategoryClick(category.id)}
+              className="group relative overflow-hidden rounded-xl bg-surface-container-low h-[450px] flex flex-col justify-end transition-all hover:-translate-y-2 cursor-pointer hover:ring-4 hover:ring-purple-300/50 hover:shadow-xl"
             >
               <img
                 alt={category.title}
@@ -58,7 +67,7 @@ export default function CategoryShowcase() {
                   {category.description}
                 </p>
 
-                <span className={`inline-flex items-center justify-center w-12 h-12 rounded-full ${category.iconBg} ${category.iconText} material-symbols-outlined`}>
+                <span className={`inline-flex items-center justify-center w-12 h-12 rounded-full ${category.iconBg} ${category.iconText} material-symbols-outlined transition-transform duration-300 group-hover:scale-110`}>
                   arrow_outward
                 </span>
               </div>

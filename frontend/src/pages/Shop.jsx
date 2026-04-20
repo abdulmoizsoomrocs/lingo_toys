@@ -2,6 +2,7 @@ import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
 import ProductGrid from "../components/ProductGrid";
 import { useState, useEffect } from "react";
+import { useSearchParams } from "react-router-dom";
 
 const filterOptions = [
   { key: 'all', label: 'Show All' },
@@ -12,9 +13,10 @@ const filterOptions = [
 ];
 
 export default function Shop() {
+  const [searchParams] = useSearchParams();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [selectedFilter, setSelectedFilter] = useState('all');
+  const [selectedFilter, setSelectedFilter] = useState(searchParams.get('filter') || 'all');
 
   useEffect(() => {
     const fetchProducts = async () => {

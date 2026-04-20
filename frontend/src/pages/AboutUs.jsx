@@ -15,8 +15,23 @@ export default function AboutUs() {
                 LingoToys was born in a small workshop where mechanical engineering met hand-drawn animation. We didn't just want to build robots; we wanted to build characters with souls and stories.
               </p>
               <div className="flex gap-4">
-                <button className="px-8 py-4 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-lg font-bold hover:shadow-lg transition-all hover:translate-y-[-2px] shadow-md">🚀 Join the Adventure</button>
-                <button className="px-8 py-4 bg-gradient-to-r from-purple-300 to-pink-300 text-purple-900 rounded-lg font-bold hover:shadow-lg transition-all shadow-md">🎬 Watch Our Story</button>
+   <a
+  href="https://www.instagram.com/lingo_toys?igsh=MTdvcTJyNXpyaWUyaQ%3D%3D&utm_source=qr"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="inline-block px-8 py-4 bg-gradient-to-r from-blue-500 to-cyan-500 text-white rounded-lg font-bold hover:shadow-lg transition-all hover:-translate-y-1 shadow-md"
+>
+  🚀 Join the Adventure
+</a>
+
+<a
+  href="https://www.youtube.com/@Lingo_Toys"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="inline-block px-8 py-4 bg-gradient-to-r from-purple-300 to-pink-300 text-purple-900 rounded-lg font-bold hover:shadow-lg transition-all hover:-translate-y-1 shadow-md"
+>
+  🎬 Watch Our Story
+</a>
               </div>
             </div>
             <div className="relative">
@@ -103,8 +118,8 @@ export default function AboutUs() {
                     alt="Details"
                     className="rounded-xl aspect-[3/4] object-cover shadow-lg border-4 border-purple-400"
                     data-alt="Close-up of colorful mechanical gears and anime-style character figurines on a bright yellow work surface"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuCSL7cfZ29Tm4gky1L5wxx8D5R1EGavtdzKw2fWE2s5hNuq2X3nKjVJGSwH0_Q3Rbq_xjnmBQqCvXjOpcq892Ch-VLHZxe0XgFEe4Sw7Yv1U2LJhzFuMIWTV4F-ZyLl-AYkS6MufWoti2zRDWDgTWzjaFvDZlZnamRLxCuHEhUdV2Guv2eHQE-iJJWHWjxN_Wa36fO2UO1acrPpyBzdYhoPz61-pkuc3Ti6Wzl45TIAKRyUHAc8-70FrNhgUenw_7wvvmXR6HxnU08r"
-                  />
+src="https://images.unsplash.com/photo-1588072432836-e10032774350?q=80&w=1200&auto=format&fit=crop"
+/>
                   <div className="h-32 bg-gradient-to-br from-purple-400 to-pink-400 rounded-xl flex items-center justify-center p-4 border-4 border-purple-400">
                     <span className="text-white font-black text-center text-sm">🔧 CRAFTED WITH PRECISION</span>
                   </div>
@@ -115,15 +130,17 @@ export default function AboutUs() {
                       alt="Anime Inspiration"
                       className="w-full h-full object-cover opacity-70"
                       data-alt="Digital art illustration of a futuristic city in a soft anime style with vibrant neon lights and lush greenery"
-                      src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKco8bgCFbVkwgs6CnmvRiQuQow6iZ7L5sc9vK0J-LKk35DpAxRQW8r_Sp_F-jlfNJQNgZvVmfCgddtiglVj1AJogH0b-CUkRJI1eT-c2kh35x7nBk6Zhmtw7e1962XICm7EwUPkz0mggq-nEDAV1fdkqbMEg2dagFjZD6eww2YTwSi6ngpGbQbsAF5Yc-wnUEGAMqVgTdNz3l18aeI4JdNhpu1uBecrDjtWDwZJkAhQu2mIw2TE1Xrt1IRQmHRFhSGJgmtjO-k4-9"
-                    />
+src="https://images.unsplash.com/photo-1596464716127-f2a82984de30?q=80&w=1200&auto=format&fit=crop
+"
+/>
                   </div>
                   <img
                     alt="Assembly"
                     className="rounded-xl aspect-square object-cover shadow-lg border-4 border-pink-400"
                     data-alt="Hands assembling a complex mechanical wooden toy robot with precision tools on a clean white desk"
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuAbpnK0pfjkdli789Ci8l9aS3u-sui3h6cBjN9Mgoba5sPzaJoUvfmFgNP-bPVKt2QmV9JXFTHxA6OMU_2GtJgENjnFrXpy4Qsh8YgUfsnObb_X-yK5zfhZ5q9-GP3v94yVUkuEGnQy7qNhSahDPJNiqckSCesvrXdvXd7TAsMAsctIfH9WpkFcqs13kVYJ3vPbDACzKyXlsgT68w0uWjoD5_AD8r9T1i-25twVca1hWaaqkJGuTBiG3cC0LKwXUDt2oQyRg0s7ZJsA"
-                  />
+src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?q=80&w=1200&auto=format&fit=crop
+"
+/>
                 </div>
               </div>
             </div>
