@@ -17,11 +17,11 @@ export default function Navigation() {
 
   // Countdown Timer Effect
   useEffect(() => {
+    // Set target date to 30 days from now (only once)
+    const targetDate = new Date();
+    targetDate.setDate(targetDate.getDate() + 30);
+
     const calculateTimeLeft = () => {
-      // Set target date to 30 days from now
-      const targetDate = new Date();
-      targetDate.setDate(targetDate.getDate() + 30);
-      
       const difference = targetDate - new Date();
       
       if (difference > 0) {
@@ -31,6 +31,9 @@ export default function Navigation() {
           minutes: Math.floor((difference / 1000 / 60) % 60),
           seconds: Math.floor((difference / 1000) % 60)
         });
+      } else {
+        // Timer ended
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
       }
     };
 
