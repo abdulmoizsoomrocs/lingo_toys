@@ -54,7 +54,7 @@ export default function ProductGrid({ products = [] }) {
 
             <div className="flex items-center justify-between pt-2 border-t border-slate-100">
               <span className="text-xl font-black text-slate-800">
-                ${product.price?.toFixed(2)}
+                Rs. {product.price?.toFixed(2)}
               </span>
               <button className="bg-gradient-to-r from-purple-500 to-pink-500 hover:from-purple-600 hover:to-pink-600 text-white p-2.5 rounded-xl active:scale-95 transition-all duration-300 shadow-md hover:shadow-lg hover:shadow-purple-200/40">
                 <span className="material-symbols-outlined text-base" data-icon="shopping_basket">shopping_basket</span>

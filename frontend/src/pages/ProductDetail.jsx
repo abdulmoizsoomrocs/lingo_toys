@@ -114,7 +114,7 @@ export default function ProductDetail() {
               <div className="flex items-center gap-5 py-5 px-6 rounded-2xl bg-white border border-purple-100 shadow-md shadow-fuchsia-100/20">
                 <div className="flex flex-col">
                   <span className="text-xs font-semibold text-purple-500 uppercase tracking-wider mb-0.5">Retail Price</span>
-                  <span className="text-4xl font-black text-fuchsia-700">${product.price?.toFixed(2)}</span>
+                  <span className="text-4xl font-black text-fuchsia-700">Rs. {product.price?.toFixed(2)}</span>
                 </div>
                 <div className="ml-auto flex items-center gap-1.5 bg-emerald-50 border border-emerald-200 text-emerald-700 px-3 py-1.5 rounded-full text-xs font-semibold">
                   <span className="material-symbols-outlined text-sm text-emerald-600">check_circle</span>

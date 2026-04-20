@@ -71,7 +71,7 @@ const total = subtotal + shipping - discount;
 
         {/* PRICE */}
         <p className="text-2xl font-black text-green-600">
-          ${item.price}
+          Rs. {item.price}
         </p>
       </div>
 
@@ -142,21 +142,21 @@ const total = subtotal + shipping - discount;
               <div className="space-y-4 mb-8">
                 <div className="flex justify-between items-center text-orange-700 font-semibold">
 <span className="font-medium">Subtotal ({totalItems} items)</span>
-<span className="font-bold">${subtotal.toFixed(2)}</span>
+<span className="font-bold">Rs. {subtotal.toFixed(2)}</span>
                 </div>
                 <div className="flex justify-between items-center text-orange-600 font-semibold">
                   <span className="font-medium">🚚 Eco-Shipping</span>
-                  <span className="font-bold">$15.00</span>
+                  <span className="font-bold">Rs. 15.00</span>
                 </div>
                 <div className="flex justify-between items-center text-green-600 font-bold">
                   <span className="font-medium">✅ Toy Box Discount</span>
-                  <span className="font-bold">-$15.00</span>
+                  <span className="font-bold">-Rs. 15.00</span>
                 </div>
                 <div className="pt-4 border-t-2 border-yellow-300 flex justify-between items-baseline">
                   <span className="text-xl font-bold text-orange-900">💰 Total</span>
 
 <span className="text-3xl font-black bg-gradient-to-r from-yellow-600 to-orange-600 bg-clip-text text-transparent">
-  ${total.toFixed(2)}
+  Rs. {total.toFixed(2)}
 </span>                
                 </div>
               </div>

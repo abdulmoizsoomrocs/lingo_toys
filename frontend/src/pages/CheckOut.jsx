@@ -124,7 +124,7 @@ const total = subtotal + tax;
       <p className="font-bold text-on-surface text-sm">{item.name}</p>
       <p className="text-xs text-on-surface-variant">Qty: {item.quantity}</p>
       <p className="text-tertiary font-bold mt-1">
-        ${(item.price * item.quantity).toFixed(2)}
+        Rs. {(item.price * item.quantity).toFixed(2)}
       </p>
     </div>
   </div>
@@ -135,17 +135,17 @@ const total = subtotal + tax;
                 <div className="space-y-3 pt-6 border-t border-outline-variant/30">
                   <div className="flex justify-between text-sm">
                     <span className="text-on-surface-variant">Subtotal</span>
-<span className="font-medium">${subtotal.toFixed(2)}</span>                  </div>
+<span className="font-medium">Rs. {subtotal.toFixed(2)}</span>                  </div>
                   <div className="flex justify-between text-sm">
                     <span className="text-on-surface-variant">Shipping</span>
                     <span className="text-success text-tertiary font-bold">FREE</span>
                   </div>
                   <div className="flex justify-between text-sm">
-<span className="font-medium">${tax.toFixed(2)}</span>                    <span className="font-medium">$7.56</span>
+<span className="font-medium">Rs. {tax.toFixed(2)}</span>                    <span className="font-medium">Rs. 7.56</span>
                   </div>
                   <div className="flex justify-between text-xl font-black pt-4 text-primary">
                     <span>Total</span>
-<span>${total.toFixed(2)}</span>                  </div>
+<span>Rs. {total.toFixed(2)}</span>                  </div>
                 </div>
                 {/* CTA Button */}
                 <button
