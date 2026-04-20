@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useCart } from '../context/CartContext';
 
 export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { cart } = useCart();
+  
+  // Calculate total items in cart
+  const totalCartItems = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
     <nav className="fixed top-0 w-full z-50 bg-gradient-to-r from-red-400 via-yellow-300 to-purple-400 backdrop-blur-xl shadow-[0_20px_40px_rgba(0,0,0,0.2)]">
@@ -71,10 +76,17 @@ export default function Navigation() {
             
 <Link
   to="/cart"
-  className="bg-gradient-to-r from-blue-400 to-green-400 text-white px-4 py-2 rounded-full font-bold hover:scale-110 transition-transform duration-200 active:scale-95 inline-flex items-center gap-2 shadow-lg"
+  className="bg-gradient-to-r from-blue-400 to-green-400 text-white px-4 py-2 rounded-full font-bold hover:scale-110 transition-transform duration-200 active:scale-95 inline-flex items-center gap-2 shadow-lg relative"
 >
   <span className="material-symbols-outlined">shopping_cart</span>
-            <span className="hidden sm:inline">Cart</span>
+  <span className="hidden sm:inline">Cart</span>
+  
+  {/* Cart Counter Badge */}
+  {totalCartItems > 0 && (
+    <span className="absolute -top-2 -right-2 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs font-black rounded-full w-6 h-6 flex items-center justify-center shadow-lg ring-2 ring-white animate-pulse">
+      {totalCartItems}
+    </span>
+  )}
 </Link>
             
           </div>
