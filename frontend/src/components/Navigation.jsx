@@ -230,6 +230,53 @@ const STYLES = `
   .nav-cart-label { display: none; }
   @media (min-width: 480px) { .nav-cart-label { display: inline; } }
 
+  .nav-auth-btn {
+    display: flex; align-items: center; gap: 0.4rem;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    font-size: 0.85rem;
+    border: none;
+    border-radius: 50px;
+    padding: 0.48rem 1rem;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.18s;
+    flex-shrink: 0;
+  }
+
+  /* Login button - Light glass style */
+  .nav-auth-btn.login {
+    background: rgba(255,255,255,0.35);
+    color: #5b21b6;
+    border: 1.5px solid rgba(255,255,255,0.5);
+    box-shadow: 0 4px 16px rgba(91,33,182,0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .nav-auth-btn.login:hover {
+    background: rgba(255,255,255,0.5);
+    border-color: rgba(255,255,255,0.8);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(91,33,182,0.25);
+    color: #7c3aed;
+  }
+  .nav-auth-btn.login:active { transform: scale(0.97); }
+
+  /* Register button - Gradient style */
+  .nav-auth-btn.register {
+    background: linear-gradient(135deg, #a29bfe 0%, #fd79a8 50%, #ff6b6b 100%);
+    color: #fff;
+    box-shadow: 0 4px 16px rgba(253,121,168,0.4);
+    border: 1.5px solid rgba(255,255,255,0.4);
+  }
+  .nav-auth-btn.register:hover {
+    transform: translateY(-2px) scale(1.05);
+    box-shadow: 0 8px 24px rgba(253,121,168,0.5);
+    filter: brightness(1.08);
+    border-color: rgba(255,255,255,0.6);
+  }
+  .nav-auth-btn.register:active { transform: scale(0.95); }
+
   .nav-badge {
     position: absolute;
     top: -7px; right: -7px;
@@ -505,8 +552,14 @@ export default function Navigation() {
 
         <div className="nav-spacer" style={{ maxWidth: '1.25rem' }} />
 
-        {/* Cart */}
+        {/* Cart + Auth Buttons */}
         <div className="nav-actions">
+          <Link to="/login" className="nav-auth-btn login" aria-label="Login">
+            🔐 Login
+          </Link>
+          <Link to="/register" className="nav-auth-btn register" aria-label="Register">
+            ✨ Register
+          </Link>
           <Link to="/cart" className="nav-cart-btn" aria-label={`Cart, ${totalItems} items`}>
             <span className="nav-cart-icon material-symbols-outlined">shopping_cart</span>
             <span className="nav-cart-label">Cart</span>
@@ -542,6 +595,26 @@ export default function Navigation() {
           >
             ℹ️ About Us
           </Link>
+          <div style={{ borderTop: '1px solid rgba(255,255,255,0.2)', marginTop: '0.5rem', paddingTop: '0.75rem', display: 'flex', gap: '0.5rem' }}>
+            <Link
+              className="nav-auth-btn login"
+              to="/login"
+              role="menuitem"
+              onClick={() => setIsOpen(false)}
+              style={{ flex: 1, textAlign: 'center', fontSize: '0.8rem' }}
+            >
+              🔐 Login
+            </Link>
+            <Link
+              className="nav-auth-btn register"
+              to="/register"
+              role="menuitem"
+              onClick={() => setIsOpen(false)}
+              style={{ flex: 1, textAlign: 'center', fontSize: '0.8rem' }}
+            >
+              ✨ Register
+            </Link>
+          </div>
           <div className="mobile-search">
             <span className="mobile-search-icon material-symbols-outlined">search</span>
             <input
