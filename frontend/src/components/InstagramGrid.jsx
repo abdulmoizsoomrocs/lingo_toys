@@ -36,7 +36,6 @@ export default function InstagramGrid() {
             <h2 className="text-4xl font-black text-on-surface font-headline">#LingoToysLife</h2>
             <p className="text-on-surface-variant">See how our community plays.</p>
           </div>
-          <span className="font-bold text-tertiary">@lingotoys_official</span>
         </div>
         <div className="flex gap-4 px-4 overflow-x-auto no-scrollbar">
           {instagramPhotos.map((photo, index) => (

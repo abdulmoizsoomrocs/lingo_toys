@@ -7,7 +7,7 @@ export default function Hero() {
       <div className="grid md:grid-cols-2 gap-12 items-center w-full max-w-7xl mx-auto z-10 py-12">
         <div className="space-y-8">
           <span className="inline-block px-4 py-1.5 bg-gradient-to-r from-cyan-300 to-blue-400 text-white rounded-full text-sm font-bold tracking-wide uppercase shadow-lg">
-            ✨ New Collection 2024
+            ✨ New Collection 2026
           </span>
           <h1 className="text-5xl md:text-8xl font-black bg-gradient-to-r from-purple-600 via-pink-500 to-red-500 bg-clip-text text-transparent leading-[0.9] tracking-tighter font-headline">
             Where Logic{' '}

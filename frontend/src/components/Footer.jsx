@@ -194,7 +194,7 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-6 text-xs text-gray-600 dark:text-gray-400">
             
             <div className="text-center md:text-left">
-              <p className="font-medium">© 2024 LingoToys. Built for Play.</p>
+              <p className="font-medium">© 2026 LingoToys. Built for Play.</p>
               <p className="text-gray-500 dark:text-gray-500 mt-1">
                 Developed by <span className="font-semibold text-gray-700 dark:text-gray-300">Moiz Developers</span>
               </p>
