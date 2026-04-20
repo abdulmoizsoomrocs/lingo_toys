@@ -173,6 +173,25 @@ export default function ProductDetail() {
                     <span className="font-bold text-fuchsia-700 text-sm">{product.specs.ageGroup}</span>
                   </li>
                 )}
+
+                {product.specs?.features && (
+  <li className="flex items-center justify-between border-b border-slate-100 pb-3">
+    <span className="text-slate-500 text-sm">Features</span>
+    <span className="font-bold text-fuchsia-700 text-sm">
+      {product.specs.features}
+    </span>
+  </li>
+)}
+
+{product.specs?.color && (
+  <li className="flex items-center justify-between border-b border-slate-100 pb-3">
+    <span className="text-slate-500 text-sm">Color</span>
+    <span className="font-bold text-fuchsia-700 text-sm">
+      {product.specs.color}
+    </span>
+  </li>
+)}
+
                 {product.specs?.pieces && (
                   <li className="flex items-center justify-between border-b border-slate-100 pb-3">
                     <span className="text-slate-500 text-sm">Pieces</span>
