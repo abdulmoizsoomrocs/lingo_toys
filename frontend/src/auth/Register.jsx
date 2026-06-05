@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { validateEmail } from '../utils/authHelper';
+import { registerUser, validateEmail } from '../utils/authHelper';
 
 export default function Register() {
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -11,10 +12,15 @@ export default function Register() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     setSuccess('');
+
+    if (!name.trim()) {
+      setError('Name is required');
+      return;
+    }
 
     if (!email.trim()) {
       setError('Email is required');
@@ -47,13 +53,17 @@ export default function Register() {
     }
 
     setLoading(true);
-    setTimeout(() => {
-      setSuccess('Registration successful! Redirecting to login...');
+    const result = await registerUser(name, email, password, confirmPassword);
+    setLoading(false);
+
+    if (result.success) {
+      setSuccess('Registration successful! Redirecting to home...');
       setTimeout(() => {
-        setLoading(false);
-        navigate('/login');
+        navigate('/');
       }, 1500);
-    }, 800);
+    } else {
+      setError(result.error);
+    }
   };
 
   return (
@@ -70,6 +80,18 @@ export default function Register() {
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Name */}
+            <div>
+              <label className="block text-sm font-bold text-gray-700 mb-2">Full Name</label>
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                placeholder="John Doe"
+                className="w-full px-4 py-3 rounded-xl border-2 border-gray-200 focus:border-cyan-500 focus:outline-none transition-colors bg-gray-50 text-gray-800 placeholder-gray-400"
+              />
+            </div>
+
             {/* Email */}
             <div>
               <label className="block text-sm font-bold text-gray-700 mb-2">Email</label>

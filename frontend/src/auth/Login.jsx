@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { setAuthenticated, validateEmail } from '../utils/authHelper';
+import { loginUser, validateEmail } from '../utils/authHelper';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -9,7 +9,7 @@ export default function Login() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
@@ -34,11 +34,14 @@ export default function Login() {
     }
 
     setLoading(true);
-    setTimeout(() => {
-      setAuthenticated(true);
-      setLoading(false);
+    const result = await loginUser(email, password);
+    setLoading(false);
+
+    if (result.success) {
       navigate('/');
-    }, 800);
+    } else {
+      setError(result.error);
+    }
   };
 
   return (
