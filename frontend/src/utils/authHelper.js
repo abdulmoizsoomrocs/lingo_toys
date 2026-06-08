@@ -1,7 +1,6 @@
 // Auth Helper Functions
 
-const API_URL = "http://localhost:5000/api/auth";
-
+const API_URL = "https://lingotoys-api.onrender.com/api/auth";
 // Check if user is logged in
 export const isAuthenticated = () => {
   return !!localStorage.getItem("token");
