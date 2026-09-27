@@ -540,7 +540,7 @@ export default function Navigation() {
             role="menuitem"
             onClick={() => setIsOpen(false)}
           >
-            ℹ️ About Us
+            ℹ️ About Me
           </Link>
           <div className="mobile-search">
             <span className="mobile-search-icon material-symbols-outlined">search</span>
