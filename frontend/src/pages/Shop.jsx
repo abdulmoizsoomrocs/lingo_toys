@@ -3,6 +3,7 @@ import Footer from "../components/Footer";
 import ProductGrid from "../components/ProductGrid";
 import { useState, useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
+import { fetchProducts } from "../services/productService";
 
 /* ── Injected styles ──────────────────────────────────────────── */
 const STYLES = `
@@ -410,24 +411,18 @@ const filterOptions = [
 /* ── Main component ───────────────────────────────────────────── */
 export default function Shop() {
   injectStyles();
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [products, setProducts]       = useState([]);
   const [loading, setLoading]         = useState(true);
-  const [selectedFilter, setSelectedFilter] = useState(searchParams.get('filter') || 'all');
+  const selectedFilter = searchParams.get('filter') || 'all';
 
   const { page, setPage, totalPages, paged } = usePagination(products);
 
   useEffect(() => {
-    const fetchProducts = async () => {
+    const loadProducts = async () => {
       try {
         setLoading(true);
-        const BASE_URL = import.meta.env.VITE_API_URL;
-        let url = `${BASE_URL}/api/products`;
-        if (selectedFilter !== 'all') url += `?filter=${selectedFilter}`;
-        console.log("Selected Filter:", selectedFilter);
-        console.log("FETCH URL:", url);
-        const response = await fetch(url);
-        const data = await response.json();
+        const data = await fetchProducts(selectedFilter);
         setProducts(data);
       } catch (error) {
         console.error('Error fetching products:', error);
@@ -436,12 +431,14 @@ export default function Shop() {
         setLoading(false);
       }
     };
-    fetchProducts();
+    loadProducts();
   }, [selectedFilter]);
 
   const handleFilterChange = (key) => {
-    setSelectedFilter(key);
-    // usePagination resets to page 1 automatically when products change
+    const nextParams = new URLSearchParams(searchParams);
+    if (key === 'all') nextParams.delete('filter');
+    else nextParams.set('filter', key);
+    setSearchParams(nextParams);
   };
 
   const activeLabel = filterOptions.find(f => f.key === selectedFilter)?.label ?? 'All';

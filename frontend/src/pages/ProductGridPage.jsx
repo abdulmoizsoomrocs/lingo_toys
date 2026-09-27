@@ -2,8 +2,42 @@ import Navigation from '../components/Navigation';
 import ProductGrid from '../components/ProductGrid';
 import Footer from '../components/Footer';
 import FloatingChat from '../components/FloatingChat';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { fetchProducts } from '../services/productService';
 
 export default function ProductGridPage() {
+  const [searchParams] = useSearchParams();
+  const filter = searchParams.get('filter') || 'all';
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
+
+  useEffect(() => {
+    let active = true;
+    setLoading(true);
+    setError('');
+
+    fetchProducts(filter)
+      .then((result) => {
+        if (active) setProducts(result);
+      })
+      .catch((requestError) => {
+        console.error('Error fetching products:', requestError);
+        if (active) {
+          setProducts([]);
+          setError('Products could not be loaded. Please try again later.');
+        }
+      })
+      .finally(() => {
+        if (active) setLoading(false);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [filter]);
+
   return (
     <div className="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 text-on-background antialiased overflow-x-hidden min-h-screen">
       <Navigation />
@@ -28,7 +62,13 @@ export default function ProductGridPage() {
 
         {/* Product Grid */}
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <ProductGrid />
+          {loading ? (
+            <p className="py-12 text-center">Loading products...</p>
+          ) : error ? (
+            <p className="py-12 text-center" role="alert">{error}</p>
+          ) : (
+            <ProductGrid products={products} />
+          )}
         </div>
 
       </main>

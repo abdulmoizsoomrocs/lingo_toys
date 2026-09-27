@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import Navigation from '../components/Navigation';
 import Footer from '../components/Footer';
 import { useCart } from "../context/CartContext";
+import { fetchProductById } from '../services/productService';
 
 export default function ProductDetail() {
   const { addToCart } = useCart();
@@ -13,12 +14,7 @@ export default function ProductDetail() {
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        const BASE_URL = import.meta.env.VITE_API_URL;
-        const response = await fetch(`${BASE_URL}/api/products/${id}`);
-        if (!response.ok) {
-          throw new Error('Product not found');
-        }
-        const data = await response.json();
+        const data = await fetchProductById(id);
         setProduct(data);
       } catch (error) {
         console.error('Error fetching product:', error);
