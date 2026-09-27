@@ -5,7 +5,6 @@ import cors from "cors";
 import connectDB from "./config/db.js";
 import productRoutes from "./routes/productRoutes.js";
 import newsletterRoutes from "./routes/newsletterRoutes.js";
-import authRoutes from "./routes/authRoutes.js";
 
 dotenv.config();
 
@@ -18,6 +17,8 @@ app.use(
     origin: [
       "https://www.lingotoys.games",
       "https://lingo-toys.vercel.app",
+      "http://localhost:5173",
+      "http://127.0.0.1:5173",
     ],
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     credentials: true,
@@ -27,7 +28,6 @@ app.use(
 app.use(express.json());
 
 // API Routes
-app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/newsletter", newsletterRoutes);
 
